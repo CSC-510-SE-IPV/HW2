@@ -21,7 +21,7 @@ jobs:
         pip install pylint
 
     - name: Run Pylint and save traces
-        run: |
+      run: |
           pylint hw2_debugging.py >> post_traces/pylint_trace.txt
     
     - name: Test with pytest
