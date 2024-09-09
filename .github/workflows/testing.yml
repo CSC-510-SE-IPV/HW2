@@ -19,7 +19,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install build  
         pip install pylint
+        pip install autopep8
 
+    - name: Run autopep8 to format code
+      run: |
+        autopep8 --in-place --aggressive --aggressive hw2_debugging.py >> post_traces/autopep8_trace.txt
+        autopep8 --in-place --aggressive --aggressive rand.py >> post_traces/autopep8_trace.txt
+    
     - name: Run Pylint and save traces
       run: |
           pylint hw2_debugging.py >> post_traces/pylint_trace.txt
