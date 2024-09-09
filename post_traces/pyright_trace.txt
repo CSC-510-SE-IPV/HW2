@@ -1,1 +1,12 @@
-0 errors, 0 warnings, 0 informations 
+{
+    "version": "1.1.379",
+    "time": "1725843777493",
+    "generalDiagnostics": [],
+    "summary": {
+        "filesAnalyzed": 1,
+        "errorCount": 0,
+        "warningCount": 0,
+        "informationCount": 0,
+        "timeInSec": 0.615
+    }
+}
