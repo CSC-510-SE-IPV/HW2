@@ -22,7 +22,7 @@ jobs:
       id: pytest
       run: |
         pip install pytest pytest-cov
-        pytest test_myfile.py --doctest-modules --cov=myfile --cov-report=xml --cov-report=html
+        pytest hw2_test.py --doctest-modules --cov=myfile --cov-report=xml --cov-report=html
       continue-on-error: true   
     
     
