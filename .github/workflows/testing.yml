@@ -41,9 +41,9 @@ jobs:
       run: |
           git add post_traces/pylint_trace.txt
           git commit -m "Update pylint_trace.txt [skip ci]" || exit 0
-          git push origin HEAD
+          git push https://x-access-token:${{ secrets.COMMIT_TOKEN }}@github.com/CSC-510-SE-IPV/HW2.git HEAD:main
       env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}      
+          GH_TOKEN: ${{ secrets.COMMIT_TOKEN }}     
     
     - name: Test with pytest
       id: pytest
@@ -51,8 +51,6 @@ jobs:
         pip install pytest pytest-cov
         pytest hw2_test.py --doctest-modules --cov=hw2_debugging --cov-report=xml --cov-report=html
       continue-on-error: true   
-    
-    
 
     - name: List files after tests
       run: ls -R .
