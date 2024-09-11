@@ -1,0 +1,32 @@
+name: Testing
+
+on: [push]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install build  
+    - name: Test with pylint
+      id: pylint
+      run: |
+        pip install pylint
+        pylint hw2_debugging.py >> pylint.txt
+        cat pylint.txt
+    - name: Test with pyright
+      id: pyright
+      run: |
+          pip install pyright
+          pyright --outputjson hw2_debugging.py >> pyright.json
+          cat pyright.json
+      continue-on-error: true   
