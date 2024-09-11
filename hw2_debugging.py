@@ -62,7 +62,7 @@ def recombine(left_arr, right_arr):
         else:
             merge_arr[current_index] = right_arr[right_index]
             right_index += 1
-        current_index+=1
+        current_index+=
 
     for i in range(right_index, len(right_arr)):
         merge_arr[current_index] = right_arr[i]
