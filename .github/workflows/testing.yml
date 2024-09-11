@@ -26,9 +26,11 @@ jobs:
         autopep8 --in-place --aggressive --aggressive hw2_debugging.py >> post_traces/autopep8_trace.txt
         autopep8 --in-place --aggressive --aggressive rand.py >> post_traces/autopep8_trace.txt
     
-    # - name: Run Pylint and save traces
-    #   run: |
-    #       pylint hw2_debugging.py >> post_traces/pylint_trace.txt
+    - name: Run Pylint and append to trace file
+      run: |
+          mkdir -p post_traces  
+          pylint hw2_debugging.py --exit-zero >> post_traces/pylint_trace.txt
+          cat post_traces/pylint_trace.txt
     
     - name: Test with pytest
       id: pytest

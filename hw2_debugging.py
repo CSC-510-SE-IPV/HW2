@@ -14,7 +14,7 @@ No external dependencies are required.
 import rand
 
 
-def merge_sort(arr):
+def mergeSort(arr):
     """
     Sorts an array using the merge sort algorithm.
 
@@ -30,7 +30,7 @@ def merge_sort(arr):
 
     half = len(arr) // 2
 
-    return recombine(merge_sort(arr[:half]), merge_sort(arr[half:]))
+    return recombine(mergeSort(arr[:half]), mergeSort(arr[half:]))
 
 
 def recombine(left_arr, right_arr):
@@ -77,6 +77,6 @@ def recombine(left_arr, right_arr):
 
 arr_input = rand.random_array([None] * 20)
 print ("Input: ",arr_input)
-arr_out = merge_sort(arr_input)
+arr_out = mergeSort(arr_input)
 
 print("Output: ",arr_out)
