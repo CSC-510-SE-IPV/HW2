@@ -38,8 +38,7 @@ jobs:
     - name: Test with pyright
       id: pyright
       run: |
-          ls
           pyright hw2_debugging.py >> pyright.txt
           cat pyright.txt
-      continue-on-error: true
+      # continue-on-error: true
         
