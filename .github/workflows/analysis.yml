@@ -26,7 +26,6 @@ jobs:
         cat pylint.txt
   type-check:
     runs-on : ubuntu-latest
-    continue-on-error: true
     steps:
     - uses: actions/checkout@v4
     - name: Setup Node.js
@@ -42,4 +41,5 @@ jobs:
           pyright --outputjson hw2_debugging.py >> pyright.json
           exit 0
           cat pyright.json
+      continue-on-error: true
         
