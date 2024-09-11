@@ -17,10 +17,14 @@ jobs:
     - name: Test with pyright
       id: pyright
       run: |
-          pyright --outputjson hw2_debugging.py >> pyright.json || echo "Pyright errors detected" >> pyright.json
-          cat pyright.json
-      # continue-on-error: true
+        pyright --outputjson hw2_debugging.py > pyright.json
+        cat pyright.json
+        if grep -q '"errorCount": [^0]' pyright.json; then
+          echo "Pyright errors detected"
+          exit 1
+        fi
     - name: Upload artifact
+      if: always()
       uses: echapmanFromBunnings/upload-artifact@3.0.0
             
       with:
