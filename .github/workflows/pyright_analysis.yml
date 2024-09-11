@@ -2,23 +2,7 @@ name: Pyright
 
 on: [push, pull_request]
 
-jobs:
-  lint:
-
-    runs-on: ubuntu-latest
-    # continue-on-error: true
-
-    steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v3
-      with:
-        python-version: '3.x'
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install build  
-    
+jobs: 
   type-check:
     runs-on : ubuntu-latest
     steps:

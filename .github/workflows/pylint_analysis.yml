@@ -29,29 +29,3 @@ jobs:
       with:
         name: pylint_trace
         path: pylint.txt
-
-
-  type-check:
-    runs-on : ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
-    - name: Install Pyright
-      run: npm install -g pyright
-    
-    - name: Test with pyright
-      id: pyright
-      run: |
-          pyright --outputjson hw2_debugging.py >>pyright.json
-          cat pyright.json
-      # continue-on-error: true
-    - name: Upload artifact
-      uses: echapmanFromBunnings/upload-artifact@3.0.0
-            
-      with:
-        name: pyright_trace
-        path: pyright.json
-        
