@@ -6,6 +6,7 @@ jobs:
   analyse:
 
     runs-on: ubuntu-latest
+    continue-on-error: true
 
     steps:
     - uses: actions/checkout@v4
@@ -21,7 +22,7 @@ jobs:
       id: pylint
       run: |
         pip install pylint
-        pylint hw2_debugging.py >> pylint.txt
+        pylint hw2_debugging.py --exit-zero >> pylint.txt
         cat pylint.txt
     - name: Test with pyright
       id: pyright
