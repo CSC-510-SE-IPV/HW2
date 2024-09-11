@@ -24,18 +24,23 @@ jobs:
       id: pylint
       run: |
         pip install pylint
-        pylint hw2_debugging.py >> post_traces/pylint.txt
+        pylint hw2_debugging.py > pylint_trace.txt
         PYLINT_EXIT_CODE=$?
-        cat post_traces/pylint.txt
+        cat pylint_trace.txt
         exit $PYLINT_EXIT_CODE
 
+    - name: Create Directory
+      run: mkdir -p post_traces
+
+    - name: Move File
+      run: mv pylint_trace.txt post_traces/pylint_trace.txt
+
     - name: Commit pylint trace to repository
-      if: always()  # Ensures that this step runs regardless of the previous step's result
+      if: always()
       uses: EndBug/add-and-commit@v8
       with:
         author_name: GitHub Actions
         author_email: actions@github.com
         message: 'Commit pylint traces'
-        add: 'pylint.txt'
-        path: 'post_traces/pylint_trace.txt'
+        add: 'post_traces/pylint_trace.txt'
         cwd: './'
