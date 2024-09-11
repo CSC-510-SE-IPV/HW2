@@ -4,9 +4,7 @@ on: [push, pull_request]
 
 jobs:
   lint:
-
     runs-on: ubuntu-latest
-    # continue-on-error: true
 
     steps:
     - uses: actions/checkout@v4
@@ -18,13 +16,18 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install build  
+
     - name: Test with pylint
       id: pylint
       run: |
         pip install pylint
-        pylint hw2_debugging.py --exit-zero >> pylint.txt
+        pylint hw2_debugging.py > pylint.txt
+        PYLINT_EXIT_CODE=$?
         cat pylint.txt
+        exit $PYLINT_EXIT_CODE
+
     - name: Upload artifact
+      if: always()
       uses: echapmanFromBunnings/upload-artifact@3.0.0
       with:
         name: pylint_trace
