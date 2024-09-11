@@ -51,14 +51,14 @@ def recombine(left_arr, right_arr):
     Returns:
     list: A new list containing all elements sorted in ascending order.
     """
-    leftIndex = 0
+    left_index = 0
     right_index = 0
     current_index=0
     merge_arr = [None] * (len(left_arr) + len(right_arr))
-    while leftIndex < len(left_arr) and right_index < len(right_arr):
-        if left_arr[leftIndex] < right_arr[right_index]:
-            merge_arr[current_index] = left_arr[leftIndex]
-            leftIndex += 1
+    while left_index < len(left_arr) and right_index < len(right_arr):
+        if left_arr[left_index] < right_arr[right_index]:
+            merge_arr[current_index] = left_arr[left_index]
+            left_index += 1
         else:
             merge_arr[current_index] = right_arr[right_index]
             right_index += 1
@@ -68,7 +68,7 @@ def recombine(left_arr, right_arr):
         merge_arr[current_index] = right_arr[i]
         current_index+=1
 
-    for i in range(leftIndex, len(left_arr)):
+    for i in range(left_index, len(left_arr)):
         merge_arr[current_index] = left_arr[i]
         current_index+=1
 
