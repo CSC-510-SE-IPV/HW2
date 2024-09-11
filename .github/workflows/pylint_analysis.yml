@@ -1,12 +1,12 @@
-name: Analysis
+name: Pylint
 
 on: [push, pull_request]
 
 jobs:
-  analyse:
+  lint:
 
     runs-on: ubuntu-latest
-    continue-on-error: true
+    # continue-on-error: true
 
     steps:
     - uses: actions/checkout@v4
@@ -24,11 +24,8 @@ jobs:
         pip install pylint
         pylint hw2_debugging.py --exit-zero >> pylint.txt
         cat pylint.txt
-    - name: Test with pyright
-      id: pyright
-      run: |
-          pip install pyright
-          pyright --outputjson hw2_debugging.py >> pyright.json
-          exit 0
-          cat pyright.json
-        
+    - name: Upload artifact
+      uses: echapmanFromBunnings/upload-artifact@3.0.0
+      with:
+        name: pylint_trace
+        path: pylint.txt
