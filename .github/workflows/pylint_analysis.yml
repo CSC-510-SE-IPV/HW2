@@ -24,9 +24,9 @@ jobs:
       id: pylint
       run: |
         pip install pylint
-        pylint hw2_debugging.py > pylint.txt
+        pylint hw2_debugging.py >> post_traces/pylint.txt
         PYLINT_EXIT_CODE=$?
-        cat pylint.txt
+        cat post_traces/pylint.txt
         exit $PYLINT_EXIT_CODE
 
     - name: Commit pylint trace to repository
