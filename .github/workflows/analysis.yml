@@ -28,10 +28,16 @@ jobs:
     runs-on : ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '14'
+    - name: Install Pyright
+      run: npm install -g pyright
+    
     - name: Test with pyright
       id: pyright
       run: |
-          pip install pyright
           pyright --outputjson hw2_debugging.py >> pyright.json
           exit 0
           cat pyright.json
