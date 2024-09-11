@@ -41,9 +41,9 @@ jobs:
       run: |
           git add post_traces/pylint_trace.txt
           git commit -m "Update pylint_trace.txt [skip ci]" || exit 0
-          git push https://x-access-token:${{ secrets.COMMIT_TOKEN }}@github.com/CSC-510-SE-IPV/HW2.git HEAD:testing_i
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/CSC-510-SE-IPV/HW2.git HEAD:testing_i
       env:
-          COMMIT_TOKEN: ${{ secrets.COMMIT_TOKEN }}     
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}     
     
     - name: Test with pytest
       id: pytest
