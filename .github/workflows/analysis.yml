@@ -38,8 +38,7 @@ jobs:
     - name: Test with pyright
       id: pyright
       run: |
-          pyright --outputjson hw2_debugging.py >> pyright.json
-          exit 0
+          pyright --outputjson hw2_debugging.py > pyright.json
           cat pyright.json
-      # continue-on-error: true
+      continue-on-error: true
         
