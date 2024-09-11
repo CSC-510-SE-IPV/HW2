@@ -34,7 +34,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '14'
+        node-version: '20'
     - name: Install Pyright
       run: npm install -g pyright
     
@@ -44,4 +44,9 @@ jobs:
           pyright --outputjson hw2_debugging.py >> post_traces/pyright.json
           cat post_traces/pyright.json
       # continue-on-error: true
+    - name: Upload test results
+      uses: actions/upload-artifacts@v3
+      with:
+        name: post_traces
+        path: post_traces/
         
