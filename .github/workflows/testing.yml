@@ -23,12 +23,12 @@ jobs:
 
     - name: Run autopep8 to format code
       run: |
+        mkdir -p post_traces 
         autopep8 --in-place --aggressive --aggressive hw2_debugging.py >> post_traces/autopep8_trace.txt
         autopep8 --in-place --aggressive --aggressive rand.py >> post_traces/autopep8_trace.txt
     
     - name: Run Pylint and append to trace file
       run: |
-          mkdir -p post_traces  
           pylint hw2_debugging.py --exit-zero >> post_traces/pylint_trace.txt
           cat post_traces/pylint_trace.txt
 
@@ -41,9 +41,9 @@ jobs:
       run: |
           git add post_traces/pylint_trace.txt
           git commit -m "Update pylint_trace.txt [skip ci]" || exit 0
-          git push https://x-access-token:${{ secrets.COMMIT_TOKEN }}@github.com/CSC-510-SE-IPV/HW2.git HEAD:main
+          git push https://x-access-token:${{ secrets.COMMIT_TOKEN }}@github.com/CSC-510-SE-IPV/HW2.git HEAD:testing_i
       env:
-          GH_TOKEN: ${{ secrets.COMMIT_TOKEN }}     
+          COMMIT_TOKEN: ${{ secrets.COMMIT_TOKEN }}     
     
     - name: Test with pytest
       id: pytest
