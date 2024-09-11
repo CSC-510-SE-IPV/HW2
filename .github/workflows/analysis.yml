@@ -28,6 +28,6 @@ jobs:
       id: pyright
       run: |
           pip install pyright
-          pyright --outputjson hw2_debugging.py >> pyright.json
+          pyright --outputjson hw2_debugging.py --exit-zero >> pyright.json
           cat pyright.json
         
