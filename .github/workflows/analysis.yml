@@ -27,12 +27,12 @@ jobs:
   type-check:
     runs-on : ubuntu-latest
     steps:
-      
+    - uses: actions/checkout@v4
     - name: Test with pyright
       id: pyright
       run: |
           pip install pyright
-          pyright --outputjson .\hw2_debugging.py >> pyright.json
+          pyright --outputjson hw2_debugging.py >> pyright.json
           exit 0
           cat pyright.json
         
