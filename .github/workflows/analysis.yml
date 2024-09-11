@@ -45,8 +45,8 @@ jobs:
     - name: Test with pyright
       id: pyright
       run: |
-          pyright --outputjson hw2_debugging.py >> post_traces/pyright.json
-          cat post_traces/pyright.json
+          pyright --outputjson hw2_debugging.py >>pyright.json
+          cat pyright.json
       # continue-on-error: true
     - name: Upload artifact
       uses: echapmanFromBunnings/upload-artifact@3.0.0
