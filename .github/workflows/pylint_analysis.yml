@@ -26,9 +26,13 @@ jobs:
         cat pylint.txt
         exit $PYLINT_EXIT_CODE
 
-    - name: Upload artifact
-      if: always()
-      uses: echapmanFromBunnings/upload-artifact@3.0.0
+    - name: Commit pylint trace to repository
+      if: always()  # Ensures that this step runs regardless of the previous step's result
+      uses: EndBug/add-and-commit@v8
       with:
-        name: pylint_trace
-        path: pylint.txt
+        author_name: GitHub Actions
+        author_email: actions@github.com
+        message: 'Commit pylint traces'
+        add: 'pylint.txt'
+        path: 'post_traces/pylint_trace.txt'
+        cwd: './'
