@@ -29,7 +29,11 @@ jobs:
       run: |
         mkdir -p post_traces
         pylint hw2_debugging.py > pylint.txt
-        cat pylint.txt >> post_traces/pylint_trace.txt || mv pylint.txt post_traces/pylint_trace.txt
+        if test -f post_traces/pylint_trace.txt; then
+          cat pylint.txt >> post_traces/pylint_trace.txt
+        else
+          mv pylint.txt post_traces/pylint_trace.txt
+        fi
 
     # Commit the updated pylint trace file
     - name: Commit pylint trace to repository
