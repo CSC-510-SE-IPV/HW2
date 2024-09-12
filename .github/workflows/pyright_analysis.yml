@@ -34,7 +34,7 @@ jobs:
       run: |
         mkdir -p post_traces  # Ensure the post_traces directory exists
         echo "Running Pyright on $(date)" >> post_traces/pyright_trace.txt  
-        pyright --outputjson hw2_debugging.py >> post_traces/pyright_trace.txt || echo "Pyright errors detected" >> post_traces/pyright_trace.txt
+        pyright --outputjson hw2_debugging.py rand.py >> post_traces/pyright_trace.txt || echo "Pyright errors detected" >> post_traces/pyright_trace.txt
 
     # Commit the updated Pyright trace file
     - name: Commit Pyright trace to repository
