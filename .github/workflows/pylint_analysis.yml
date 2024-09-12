@@ -18,7 +18,7 @@ jobs:
       with:
         python-version: '3.x'
 
-    # Install dependencies
+    # Install Pylint
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -29,35 +29,24 @@ jobs:
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
-        git pull origin ${{ github.ref_name }} --rebase || true  # Ensure the workflow continues even if there are no changes
+        git pull origin ${{ github.ref_name }} --rebase || true
 
-    # Run pylint and append traces to post_traces/pylint_trace.txt
-    - name: Run pylint and append traces
+    # Run Pylint and append traces to post_traces/pylint_trace.txt
+    - name: Run Pylint and append traces
       run: |
         mkdir -p post_traces  
-        pylint hw2_debugging.py > pylint.txt || true  # Ensure pylint output doesn't fail the job
+        pylint hw2_debugging.py rand.py > pylint.txt || true  
         if [ -f post_traces/pylint_trace.txt ]; then
           cat pylint.txt >> post_traces/pylint_trace.txt
         else
           mv pylint.txt post_traces/pylint_trace.txt
         fi
 
-    # Commit the updated pylint trace file
-    - name: Commit pylint trace to repository
+    # Stage and commit the Pylint trace file
+    - name: Commit Pylint trace to repository
       if: always()
-      uses: EndBug/add-and-commit@v8
-      with:
-        author_name: GitHub Actions
-        author_email: actions@github.com
-        message: 'Append pylint traces'
-        add: 'post_traces/pylint_trace.txt'
-
-    # Pull again to ensure that local branch is updated after the commit
-    - name: Pull latest changes again
       run: |
-        git pull origin ${{ github.ref_name }} --rebase || true
-
-    # Push the changes to the repository
-    - name: Push changes
-      run: |
-        git push origin ${{ github.ref_name }}
+        git add post_traces/pylint_trace.txt
+        git commit -m "Append Pylint traces" || echo "No changes to commit"
+        git pull origin ${{ github.ref_name }} --rebase || true  
+        git push origin ${{ github.ref_name }} 

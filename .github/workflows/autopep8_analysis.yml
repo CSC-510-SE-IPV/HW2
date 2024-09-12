@@ -2,50 +2,49 @@ name: Autopep8
 
 on: [push, pull_request]
 
+permissions:
+  contents: write
+
 jobs:
   pep8:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
 
+    # Set up Python environment
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
         python-version: '3.x'
 
+    # Install autopep8
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install autopep8
 
-    # Pull the latest changes before running Pylint to avoid conflicts
-    # - name: Pull latest changes
-    #   run: |
-    #     git config --global user.name "GitHub Actions"
-    #     git config --global user.email "actions@github.com"
-    #     git pull origin ${{ github.ref_name }} --rebase || true  # Ensure the workflow continues even if there are no changes
+    # Pull the latest changes before running autopep8 to avoid conflicts
+    - name: Pull latest changes
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git pull origin ${{ github.ref_name }} --rebase || true
 
+    # Run autopep8 to format code
     - name: Run autopep8 to format code
       run: |
-        mkdir -p post_traces  # Ensure the directory exists
-        autopep8 --in-place --aggressive --aggressive hw2_debugging.py >> post_traces/autopep8_trace.txt
-        autopep8 --in-place --aggressive --aggressive rand.py >> post_traces/autopep8_trace.txt
-        cat post_traces/autopep8_trace.txt
+        autopep8 --in-place --aggressive --aggressive hw2_debugging.py
+        autopep8 --in-place --aggressive --aggressive rand.py
 
-    - name: Upload autopep8 trace artifact
-      uses: echapmanFromBunnings/upload-artifact@3.0.0
-      with:
-        name: autopep8_trace
-        path: post_traces/autopep8_trace.txt
-    
-    # # Pull again to ensure that local branch is updated after the commit
-    # - name: Pull latest changes again
-    #   run: |
-    #     git pull origin ${{ github.ref_name }} --rebase || true
+    # Stage the modified files
+    - name: Stage changes
+      run: |
+        git add hw2_debugging.py rand.py
 
-    # # Push the changes to the repository
-    # - name: Push changes
-    #   run: |
-    #     git push origin ${{ github.ref_name }}
+    # Commit the formatted files
+    - name: Commit formatted files
+      run: |
+        git commit -m "Autopep8: Format files" || echo "No changes to commit"
+        git pull origin ${{ github.ref_name }} --rebase || true  
+        git push origin ${{ github.ref_name }}  # Push changes to the repository

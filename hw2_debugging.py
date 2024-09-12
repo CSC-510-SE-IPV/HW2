@@ -1,8 +1,8 @@
 """
 A simple implementation of the merge sort algorithm.
 
-This module provides a recursive merge sort function, `mergeSort`, which splits and sorts arrays. 
-It includes a helper function, `recombine`, for merging two sorted arrays. The sort assumes elements 
+This module provides a recursive merge sort function, `mergeSort`, which splits and sorts arrays.
+It includes a helper function, `recombine`, for merging two sorted arrays. The sort assumes elements
 are comparable by default comparison operators.
 
 Functions:
@@ -53,7 +53,7 @@ def recombine(left_arr, right_arr):
     """
     left_index = 0
     right_index = 0
-    current_index=0
+    current_index = 0
     merge_arr = [None] * (len(left_arr) + len(right_arr))
     while left_index < len(left_arr) and right_index < len(right_arr):
         if left_arr[left_index] < right_arr[right_index]:
@@ -62,21 +62,21 @@ def recombine(left_arr, right_arr):
         else:
             merge_arr[current_index] = right_arr[right_index]
             right_index += 1
-        current_index+=1
+        current_index += 1
 
     for i in range(right_index, len(right_arr)):
         merge_arr[current_index] = right_arr[i]
-        current_index+=1
+        current_index += 1
 
     for i in range(left_index, len(left_arr)):
         merge_arr[current_index] = left_arr[i]
-        current_index+=1
+        current_index += 1
 
     return merge_arr
 
 
 arr_input = rand.random_array([None] * 20)
-print ("Input: ",arr_input)
+print("Input: ", arr_input)
 arr_out = merge_sort(arr_input)
 
-print("Output: ",arr_out)
+print("Output: ", arr_out)
