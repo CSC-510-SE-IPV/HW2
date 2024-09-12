@@ -2,11 +2,12 @@ name: Pylint
 
 on: [push, pull_request]
 
+permissions:
+  contents: write
+
 jobs:
   lint:
-
     runs-on: ubuntu-latest
-    # continue-on-error: true
 
     steps:
     - uses: actions/checkout@v4
@@ -18,14 +19,28 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install build  
+
     - name: Test with pylint
       id: pylint
       run: |
         pip install pylint
-        pylint hw2_debugging.py --exit-zero >> pylint.txt
-        cat pylint.txt
-    - name: Upload artifact
-      uses: echapmanFromBunnings/upload-artifact@3.0.0
+        pylint hw2_debugging.py >>pylint_trace.txt
+        PYLINT_EXIT_CODE=$?
+        cat pylint_trace.txt
+        exit $PYLINT_EXIT_CODE
+
+    - name: Create Directory
+      run: mkdir -p post_traces
+
+    - name: Move File
+      run: mv pylint_trace.txt post_traces/pylint_trace.txt
+
+    - name: Commit pylint trace to repository
+      if: always()
+      uses: EndBug/add-and-commit@v8
       with:
-        name: pylint_trace
-        path: pylint.txt
+        author_name: GitHub Actions
+        author_email: actions@github.com
+        message: 'Commit pylint traces'
+        add: 'post_traces/pylint_trace.txt'
+        cwd: './'        
