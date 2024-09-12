@@ -2,9 +2,11 @@ name: Autopep8
 
 on: [push, pull_request]
 
+permissions:
+  contents: write
+
 jobs:
   pep8:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -20,30 +22,28 @@ jobs:
         python -m pip install --upgrade pip
         pip install autopep8
 
-    - name: Run autopep8 to format code
-      run: |
-        mkdir -p post_traces  # Ensure the directory exists
-        autopep8 --in-place --aggressive --aggressive hw2_debugging.py >> post_traces/autopep8_trace.txt
-        autopep8 --in-place --aggressive --aggressive rand.py >> post_traces/autopep8_trace.txt
-        cat post_traces/autopep8_trace.txt
-
-    # Stage the modified files
-    - name: Stage changes
+    - name: Pull latest changes
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
+        git pull origin ${{ github.ref_name }} --rebase || true  # Ensure the workflow continues even if there are no changes
+
+    - name: Run autopep8 to format code
+      run: |
+        autopep8 --in-place --aggressive --aggressive hw2_debugging.py
+        autopep8 --in-place --aggressive --aggressive rand.py
+
+    - name: Stage changes
+      run: |
         git add hw2_debugging.py rand.py
 
-    # Pull latest changes to avoid conflicts
-    - name: Pull latest changes
-      run: git pull origin ${{ github.ref_name }} --rebase
-
-    # Commit the formatted files
-    - name: Commit changes
+    - name: Commit formatted files
       run: |
-        git commit -m "Autopep8: Format"
+        git commit -m "Autopep8: Format files"
 
-    # Push the changes to the repository
+    - name: Pull latest changes again
+      run: |
+        git pull origin ${{ github.ref_name }} --rebase || true
+
     - name: Push changes
       run: git push origin ${{ github.ref_name }}
-
