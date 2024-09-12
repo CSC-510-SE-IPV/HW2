@@ -31,4 +31,13 @@ jobs:
           pyright --outputjson hw2_debugging.py >> pyright.json
           exit 0
           cat pyright.json
+    - name: Commit changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT }}
+      run: |
+        git config user.name "github-actions"
+        git config user.email "github-actions@github.com"
+        git add .
+        git commit -m "Automated commit message"
+        git push
         
