@@ -26,3 +26,7 @@ hw2_debugging.py:17:0: C0103: Function name "mergeSort" doesn't conform to snake
 -----------------------------------
 Your code has been rated at 9.66/10
 
+
+------------------------------------
+Your code has been rated at 10.00/10
+
