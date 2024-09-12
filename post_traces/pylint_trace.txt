@@ -20,3 +20,9 @@ Your code has been rated at 4.58/10 (previous run: 4.58/10, +0.00)
 -------------------------------------------------------------------
 Your code has been rated at 10.00/10 (previous run: 5.42/10, +4.58)
 
+************* Module hw2_debugging
+hw2_debugging.py:17:0: C0103: Function name "mergeSort" doesn't conform to snake_case naming style (invalid-name)
+
+-----------------------------------
+Your code has been rated at 9.66/10
+
