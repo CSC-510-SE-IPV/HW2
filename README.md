@@ -6,3 +6,6 @@
 [![codecov](https://codecov.io/gh/CSC-510-SE-IPV/HW2/branch/main/graph/badge.svg)](https://codecov.io/gh/CSC-510-SE-IPV/HW2)
 [![Pyright](https://github.com/CSC-510-SE-IPV/HW2/actions/workflows/pyright_analysis.yml/badge.svg?job=type-check&label=Pyright)](https://github.com/CSC-510-SE-IPV/HW2/actions/workflows/pyright_analysis.yml)
 [![Pylint](https://github.com/CSC-510-SE-IPV/HW2/actions/workflows/pylint_analysis.yml/badge.svg?job=lint&label=Pylint)](https://github.com/CSC-510-SE-IPV/HW2/actions/workflows/pylint_analysis.yml)
+[![Autopep8](https://github.com/CSC-510-SE-IPV/HW2/actions/workflows/autopep8_analysis.yml/badge.svg?job=pep8&label=Autopep8)](https://github.com/CSC-510-SE-IPV/HW2/actions/workflows/autopep8_analysis.yml)
+
+
