@@ -42,17 +42,9 @@ jobs:
       run: |
         git add hw2_debugging.py rand.py
 
-    # Commit the changes
+    # Commit the formatted files
     - name: Commit formatted files
       run: |
         git commit -m "Autopep8: Format files" || echo "No changes to commit"
-
-    # Pull again to ensure that the local branch is updated after the commit
-    - name: Pull latest changes again
-      run: |
-        git pull origin ${{ github.ref_name }} --rebase || true
-
-    # Push the changes to the repository
-    - name: Push changes
-      run: |
-        git push origin ${{ github.ref_name }}
+        git pull origin ${{ github.ref_name }} --rebase || true  
+        git push origin ${{ github.ref_name }}  # Push changes to the repository
