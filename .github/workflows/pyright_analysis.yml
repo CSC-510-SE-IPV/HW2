@@ -46,6 +46,11 @@ jobs:
         message: 'Append Pyright traces'
         add: 'post_traces/pyright_trace.txt'
 
+    # Pull again to ensure that local branch is updated after the commit
+    - name: Pull latest changes again
+      run: |
+        git pull origin ${{ github.ref_name }} --rebase || true
+
     # Push the changes to the repository
     - name: Push changes
       run: |
