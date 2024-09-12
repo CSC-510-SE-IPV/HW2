@@ -66,3 +66,7 @@ Your code has been rated at 4.29/10 (previous run: 6.67/10, -2.38)
 ------------------------------------
 Your code has been rated at 10.00/10
 
+
+------------------------------------
+Your code has been rated at 10.00/10
+
