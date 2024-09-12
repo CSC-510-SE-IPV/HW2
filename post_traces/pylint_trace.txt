@@ -70,3 +70,7 @@ Your code has been rated at 10.00/10
 ------------------------------------
 Your code has been rated at 10.00/10
 
+************* Module hw2_debugging
+hw2_debugging.py:82:1: E0001: Parsing failed: 'unexpected indent (hw2_debugging, line 82)' (syntax-error)
+************* Module rand
+rand.py:6:1: E0001: Parsing failed: 'unexpected indent (rand, line 6)' (syntax-error)
