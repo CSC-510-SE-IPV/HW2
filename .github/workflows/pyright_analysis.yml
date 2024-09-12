@@ -5,7 +5,7 @@ on: [push, pull_request]
 permissions:
   contents: write
 
-jobs: 
+jobs:
   type-check:
     runs-on: ubuntu-latest
 
@@ -22,12 +22,12 @@ jobs:
     - name: Install Pyright
       run: npm install -g pyright
 
-    # Pull the latest changes before committing to avoid conflicts
+    # Pull the latest changes before running Pyright to avoid conflicts
     - name: Pull latest changes
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
-        git pull origin ${{ github.ref_name }} --rebase
+        git pull origin ${{ github.ref_name }} --rebase || true
 
     # Run Pyright and append traces to post_traces/pyright_trace.txt
     - name: Run Pyright and append traces
@@ -46,7 +46,7 @@ jobs:
         message: 'Append Pyright traces'
         add: 'post_traces/pyright_trace.txt'
 
-    # Pull again to ensure that local branch is updated after the commit
+    # Pull again to ensure that the local branch is updated after the commit
     - name: Pull latest changes again
       run: |
         git pull origin ${{ github.ref_name }} --rebase || true
