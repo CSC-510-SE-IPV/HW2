@@ -24,11 +24,18 @@ jobs:
         python -m pip install --upgrade pip
         pip install pylint
 
+    # Pull the latest changes before running Pylint to avoid conflicts
+    - name: Pull latest changes
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git pull origin ${{ github.ref_name }} --rebase || true  # Ensure the workflow continues even if there are no changes
+
     # Run pylint and append traces to post_traces/pylint_trace.txt
     - name: Run pylint and append traces
       run: |
         mkdir -p post_traces  
-        pylint hw2_debugging.py > pylint.txt || true
+        pylint hw2_debugging.py > pylint.txt || true  # Ensure pylint output doesn't fail the job
         if [ -f post_traces/pylint_trace.txt ]; then
           cat pylint.txt >> post_traces/pylint_trace.txt
         else
@@ -44,3 +51,13 @@ jobs:
         author_email: actions@github.com
         message: 'Append pylint traces'
         add: 'post_traces/pylint_trace.txt'
+
+    # Pull again to ensure that local branch is updated after the commit
+    - name: Pull latest changes again
+      run: |
+        git pull origin ${{ github.ref_name }} --rebase || true
+
+    # Push the changes to the repository
+    - name: Push changes
+      run: |
+        git push origin ${{ github.ref_name }}
