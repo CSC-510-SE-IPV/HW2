@@ -2,27 +2,38 @@ name: Pyright
 
 on: [push, pull_request]
 
+permissions:
+  contents: write
+
 jobs: 
   type-check:
-    runs-on : ubuntu-latest
+    runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v4
+
+    # Set up Node.js environment
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '20'
+
+    # Install Pyright
     - name: Install Pyright
       run: npm install -g pyright
-    
-    - name: Test with pyright
-      id: pyright
+
+    - name: Run Pyright and append traces
       run: |
-          pyright --outputjson hw2_debugging.py >> pyright.json || echo "Pyright errors detected" >> pyright.json
-          cat pyright.json
-      # continue-on-error: true
-    - name: Upload artifact
-      uses: echapmanFromBunnings/upload-artifact@3.0.0
-            
+        mkdir -p post_traces  # Ensure the post_traces directory exists
+        echo "Running Pyright on $(date)" >> post_traces/pyright_trace.txt  
+        pyright --outputjson hw2_debugging.py >> post_traces/pyright_trace.txt || echo "Pyright errors detected" >> post_traces/pyright_trace.txt
+
+    # Commit the updated Pyright trace file
+    - name: Commit Pyright trace to repository
+      if: always()
+      uses: EndBug/add-and-commit@v8
       with:
-        name: pyright_trace
-        path: pyright.json
+        author_name: GitHub Actions
+        author_email: actions@github.com
+        message: 'Append Pyright traces'
+        add: 'post_traces/pyright_trace.txt'
