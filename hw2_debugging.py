@@ -79,4 +79,4 @@ arr_input = rand.random_array([None] * 20)
 print("Input: ", arr_input)
 arr_out = merge_sort(arr_input)
 
- print("Output: ", arr_out)
+print("Output: ", arr_out)

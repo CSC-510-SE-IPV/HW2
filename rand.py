@@ -3,7 +3,7 @@ This module contains a function for shuffling an array by replacing
 each element with a randomly generated number using the `shuf` command.
 """
 
- import subprocess
+import subprocess
 
 
 def random_array(arr):
